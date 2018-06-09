@@ -12,7 +12,7 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
@@ -27,10 +27,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/mongoScraper");
-// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoscrapedb";
-// mongoose.Promise=Promise;
-// mongoose.connect(MONGODB_URI);
+
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoScraper";
+mongoose.Promise=Promise;
+mongoose.connect(MONGODB_URI);
 
 // Routes
 
@@ -126,5 +126,4 @@ app.post("/articles/:id", function(req, res) {
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
 });
-
 
